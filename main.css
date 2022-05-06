@@ -45,6 +45,16 @@ body {
   background-color: #f44336;
   cursor: pointer;
 }
+
+.restart {
+  background-color: rgba(3, 169, 244, 0.9);
+  margin-top: 10px;
+  cursor: pointer;
+  padding: 10px 30px;
+  border-radius: 5px;
+  color: white;
+  border: none;
+}
 .result {
   display: flex;
   flex-direction: column;

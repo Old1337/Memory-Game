@@ -1,4 +1,5 @@
 const startBtn = document.querySelector(".control-buttons button");
+const restartBtn = document.querySelector(".restart");
 
 const loseSound = document.getElementById("lose");
 const winSound = document.getElementById("win");
@@ -8,7 +9,6 @@ let winMsg = document.querySelector(".result .win-msg");
 let loseMsg = document.querySelector(".result .lose-msg");
 
 const duration = 1000;
-
 const blocksContainer = document.querySelector(".memory-game-blocks");
 const blocks = Array.from(blocksContainer.children);
 const orderRange = [...Array(blocks.length).keys()];
@@ -24,18 +24,35 @@ startBtn.addEventListener("click", () => {
   gameSound.play();
   startBtn.parentElement.remove();
 
-  const countDown = setInterval(() => {
-    let timer = document.querySelector(".timer span");
-    if (timer.innerHTML == 0) {
-      clearInterval(countDown);
-
-      isAllMatched(blocks);
-    } else {
-      timer.innerHTML--;
-    }
-  }, 1000);
+  countDown = setInterval(countDown, 1000);
 });
 
+restartBtn.addEventListener("click", () => {
+  document.querySelector(".tries span").innerHTML = 0;
+  document.querySelector(".timer span").innerHTML = 45;
+
+  blocks.forEach((block) => block.classList.remove("matches"));
+
+  winMsg.classList.remove("active");
+  loseMsg.classList.remove("active");
+
+  blocksContainer.classList.remove("no-click");
+
+  shuffle(orderRange);
+
+  blocks.forEach((block, index) => {
+    block.style.order = orderRange[index];
+  });
+});
+
+function countDown() {
+  let timer = document.querySelector(".timer span");
+  if (timer.innerHTML == 0) {
+    isAllMatched(blocks);
+  } else {
+    timer.innerHTML--;
+  }
+}
 shuffle(orderRange);
 
 blocks.forEach((block, index) => {
@@ -116,5 +133,3 @@ function shuffle(array) {
   }
   return array;
 }
-
-console.log(blocks[0].lastElementChild.classList);
