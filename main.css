@@ -1,0 +1,191 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+.element {
+  position: relative;
+  top: 10%;
+  background-color: #f44336;
+  width: 500px;
+  height: 100px;
+  z-index: 500;
+  opacity: 0;
+  transform: translateX(-500px);
+  transition: 1s;
+}
+.element.active {
+  transform: translateX(0px);
+
+  opacity: 1;
+}
+.control-buttons {
+  position: fixed;
+  left: 0;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(3, 169, 244, 0.9);
+  z-index: 2;
+}
+.control-buttons .button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 30px;
+  transform: translate(-50%);
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  background-color: #f44336;
+  cursor: pointer;
+}
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+}
+.win-msg {
+  font-size: 30px;
+  color: #2196f3;
+  display: none;
+}
+.lose-msg {
+  font-size: 30px;
+  color: #e91e63;
+  display: none;
+}
+.win-msg.active {
+  font-size: 30px;
+  color: #2196f3;
+  display: block;
+  font-weight: bold;
+}
+.lose-msg.active {
+  font-size: 30px;
+  color: #e91e63;
+  display: block;
+  font-weight: bold;
+}
+
+.info-container {
+  width: 1200px;
+  margin: 20px auto 0;
+  background-color: #f6f6f6;
+  padding: 20px;
+  font-size: 24px;
+  border: 2px solid #2196f3;
+  display: flex;
+  justify-content: space-between;
+}
+
+.memory-game-blocks {
+  display: flex;
+  width: 1100px;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  gap: 10px;
+}
+.memory-game-blocks.no-click {
+  pointer-events: none;
+}
+
+.game-block {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  flex: 1 0 200px;
+}
+
+.game-block .front {
+  background-color: #333;
+}
+
+.front::before {
+  content: "!";
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 150px;
+  height: 100%;
+}
+
+.game-block .back {
+  background-color: #607d8b;
+  transform: rotateY(180deg);
+}
+
+.back img {
+  width: 140px;
+  height: 140px;
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  backface-visibility: hidden;
+  border: 5px solid #2196f3;
+  transition: 1s;
+}
+
+.face.active {
+  border: 5px solid #4caf50;
+}
+.game-block.active {
+  transform: rotateY(180deg);
+}
+
+.game-block.shake {
+  animation: shake 0.5s;
+  animation-delay: 0.5s;
+}
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotateY(180deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotateY(180deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotateY(180deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotateY(180deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotateY(180deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotateY(180deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotateY(180deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotateY(180deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotateY(180deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotateY(180deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotateY(180deg);
+  }
+}
+.game-block.matches {
+  transform: rotateY(180deg);
+  pointer-events: none;
+}
